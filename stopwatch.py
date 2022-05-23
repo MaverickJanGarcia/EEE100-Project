@@ -45,7 +45,7 @@ def main():
     root = Tk()
     root.title("Stop Watch")
     
-    # Main Widgets Frame
+    # Main Widget Frame
     Positions = Frame(root)
 
     # Lapbox Position
