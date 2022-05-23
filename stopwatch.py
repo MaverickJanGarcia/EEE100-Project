@@ -25,10 +25,39 @@ class StopWatch(Frame):
         SWsecond = int(SWelapsedtime - SWminute*60.0)
         SWmillisecond = int((SWelapsedtime - SWminute*60.0 - SWsecond)*100)
         self.timedisplay.set('%02d:%02d:%02d.%02d' % (SWhour, SWminute, SWsecond, SWmillisecond))
+        
+    def command_Start(self):
+        if not self.running:            
+            self.start = time.time() - self.elapsedtime
+            self.update()
+            self.running = 1
+
+    def command_Stop(self):                                    
+        if self.running:
+            self.after_cancel(self.timer)            
+            self.elapsedtime = time.time() - self.start    
+            self.record_StopWatch(self.elapsedtime)
+            self.running = 0
+
 
 def main():
     global root
     root = Tk()
     root.title("Stop Watch")
+    
+    # Main Widgets Frame
+    Positions = Frame(root)
+
+    # Lapbox Position
+    sw = StopWatch(Positions)
+    sw.grid(row=0, column=0)
+    
+    # Buttons Functions
+    Button_Start = Button(text="Start", command=sw.command_Start)
+    Button_Stop = Button(text="Stop", command=sw.command_Stop))
+    
+    # Buttons Positions
+    Button_Start.place(x=12,y=250, width=100, height=50)
+    Button_Stop.place(x=12,y= 310, width=100, height=50)
     
     root.mainloop()
