@@ -9,5 +9,5 @@ def main():
     global root
     root = Tk()
     root.title("Stop Watch")
-
-  root.mainloop()
+    
+    root.mainloop()
