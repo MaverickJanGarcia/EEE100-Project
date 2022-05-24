@@ -7,12 +7,23 @@ class StopWatch(Frame):
         self.timedisplay = StringVar()
         self.elapsedtime = 0.0
         self.start = 0.0
+        self.lapmod1 = 0
+        self.lapmod2 = 0
+        self.laps = []
      
     def Widgets(self):
         # Stop Watch Timer
         Label_StopWatchTime = Label(textvariable=self.timedisplay)
         self.record_StopWatch(self.elapsedtime)
         Label_StopWatchTime.place(x=180, y=185, height=25, width=150)
+        
+        # Laps
+        scrollbar = Scrollbar(self, orient=VERTICAL)
+        self.lapmod1 = Listbox(self, selectmode=EXTENDED, height = 8),
+                         yscrollcommand=scrollbar.set)
+        self.lapmod1.pack(side=LEFT, fill=BOTH, expand=1, pady=5, padx=2)
+        scrollbar.config(command=self.lapmod1.yview)
+        scrollbar.pack(side=RIGHT, fill=Y)
     
     def update(self):
         self.elapsedtime = time.time() - self.start
@@ -25,6 +36,14 @@ class StopWatch(Frame):
         SWsecond = int(SWelapsedtime - SWminute*60.0)
         SWmillisecond = int((SWelapsedtime - SWminute*60.0 - SWsecond)*100)
         self.timedisplay.set('%02d:%02d:%02d.%02d' % (SWhour, SWminute, SWsecond, SWmillisecond))
+        
+    def record_Lap(self, SWelapsedtime):
+        SWhour = int(SWelapsedtime/3600) 
+        SWminute = int(SWelapsedtime/60)
+        SWsecond = int(SWelapsedtime - SWminute*60.0)
+        SWmillisecond = int((SWelapsedtime - SWminute*60.0 - SWsecond)*100)
+        return '%02d:%02d:%02d.%02d' % (SWhour, SWminute, SWsecond, SWmillisecond)
+
         
     def command_Start(self):
         if not self.running:            
@@ -43,6 +62,14 @@ class StopWatch(Frame):
         self.start = time.time()
         self.elapsedtime = 0.0
         self.record_StopWatch(self.elapsedtime)
+       
+    def command_Lap(self):
+        tempo = self.elapsedtime - self.lapmod2
+        if self.running:
+            self.laps.append(self.record_Lap(tempo))
+            self.lapmod1.insert(END, self.laps[-1])
+            self.lapmod1.yview_moveto(1)
+            self.lapmod2 = self.elapsedtime
 
 def main():
     global root
@@ -60,10 +87,12 @@ def main():
     Button_Start = Button(text="Start", command=sw.command_Start)
     Button_Stop = Button(text="Stop", command=sw.command_Stop))
     Button_Reset = Button(text="Reset", command=sw.command_Reset)
+    Button_Lap = Button(text="Lap", command=sw.command_Lap)
     
     # Buttons Positions
     Button_Start.place(x=12,y=250, width=100, height=50)
     Button_Stop.place(x=12,y= 310, width=100, height=50)
     Button_Reset.place(x=390, y=250, width=100, height=50)
+    Button_Split.place(x=12,y=370, width=100, height=50)
     
     root.mainloop()
