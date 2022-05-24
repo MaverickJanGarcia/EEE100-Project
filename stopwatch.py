@@ -38,7 +38,11 @@ class StopWatch(Frame):
             self.elapsedtime = time.time() - self.start    
             self.record_StopWatch(self.elapsedtime)
             self.running = 0
-
+            
+    def command_Reset(self):
+        self.start = time.time()
+        self.elapsedtime = 0.0
+        self.record_StopWatch(self.elapsedtime)
 
 def main():
     global root
@@ -55,9 +59,11 @@ def main():
     # Buttons Functions
     Button_Start = Button(text="Start", command=sw.command_Start)
     Button_Stop = Button(text="Stop", command=sw.command_Stop))
+    Button_Reset = Button(text="Reset", command=sw.command_Reset)
     
     # Buttons Positions
     Button_Start.place(x=12,y=250, width=100, height=50)
     Button_Stop.place(x=12,y= 310, width=100, height=50)
+    Button_Reset.place(x=390, y=250, width=100, height=50)
     
     root.mainloop()
