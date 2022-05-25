@@ -40,9 +40,9 @@ class StopWatch(Frame):
         
     def record_Lap(self, SWelapsedtime):
         SWhour = int(SWelapsedtime/3600) 
-        SWminute = int(SWelapsedtime/60)
-        SWsecond = int(SWelapsedtime - SWminute*60.0)
-        SWmillisecond = int((SWelapsedtime - SWminute*60.0 - SWsecond)*100)
+        SWminute = int(SWelapsedtime/60 - SWhour*60.0)
+        SWsecond = int(SWelapsedtime - SWhour*3600.0 - SWminute*60.0)
+        SWmillisecond = int((SWelapsedtime - SWhour*3600.0 - SWminute*60.0 - SWsecond)*100)
         return '%02d:%02d:%02d.%02d' % (SWhour, SWminute, SWsecond, SWmillisecond)
     
     def command_Start(self):
