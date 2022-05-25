@@ -10,6 +10,7 @@ class StopWatch(Frame):
         self.lapmod1 = 0
         self.lapmod2 = 0
         self.laps = []
+        self.today = time.strftime("%d %b %Y %H-%M-%S", time.localtime())
      
     def Widgets(self):
         # Stop Watch Timer
@@ -43,8 +44,7 @@ class StopWatch(Frame):
         SWsecond = int(SWelapsedtime - SWminute*60.0)
         SWmillisecond = int((SWelapsedtime - SWminute*60.0 - SWsecond)*100)
         return '%02d:%02d:%02d.%02d' % (SWhour, SWminute, SWsecond, SWmillisecond)
-
-        
+    
     def command_Start(self):
         if not self.running:            
             self.start = time.time() - self.elapsedtime
@@ -71,6 +71,12 @@ class StopWatch(Frame):
             self.lapmod1.yview_moveto(1)
             self.lapmod2 = self.elapsedtime
 
+    def command_Save(self):
+        archive = str(self.entry.get()) + ' - '
+        with open(archive + self.today + '.txt', 'wb') as lapfile:
+            for lap in self.laps:
+                lapfile.write((bytes(str(lap) + '\n', 'utf-8')))
+                
 def main():
     global root
     root = Tk()
@@ -88,11 +94,13 @@ def main():
     Button_Stop = Button(text="Stop", command=sw.command_Stop))
     Button_Reset = Button(text="Reset", command=sw.command_Reset)
     Button_Lap = Button(text="Lap", command=sw.command_Lap)
+    Button_Save = Button(text="Save", command=sw.command_Save)
     
     # Buttons Positions
     Button_Start.place(x=12,y=250, width=100, height=50)
     Button_Stop.place(x=12,y= 310, width=100, height=50)
     Button_Reset.place(x=390, y=250, width=100, height=50)
     Button_Split.place(x=12,y=370, width=100, height=50)
+    Button_Save.place(x=390,y=310, width=100, height=50)
     
     root.mainloop()
