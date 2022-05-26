@@ -59,9 +59,14 @@ class StopWatch(Frame):
             self.running = 0
             
     def command_Reset(self):
-        self.start = time.time()
-        self.elapsedtime = 0.0
+        self.start = time.time()         
         self.record_StopWatch(self.elapsedtime)
+        self.after_cancel(self.timer)            
+        self.elapsedtime = time.time() - self.start    
+        self.record_StopWatch(self.elapsedtime)
+        self.running = 0
+        self.lapmod1.delete(0, 'end')
+        self.lapmod2 = 0
        
     def command_Lap(self):
         tempo = self.elapsedtime - self.lapmod2
