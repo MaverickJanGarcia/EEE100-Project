@@ -81,6 +81,16 @@ class StopWatch(Frame):
             for lap in self.laps:
                 lapfile.write((bytes(str(lap) + '\n', 'utf-8')))
                 
+        self.entry.delete(0, 'end')
+        self.start = time.time()         
+        self.record_StopWatch(self.elapsedtime)
+        self.after_cancel(self.timer)            
+        self.elapsedtime = time.time() - self.start    
+        self.record_StopWatch(self.elapsedtime)
+        self.running = 0
+        self.lapmod1.delete(0, 'end')
+        self.lapmod2 = 0
+                
 def main():
     global root
     root = Tk()
