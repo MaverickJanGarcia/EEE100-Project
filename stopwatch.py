@@ -7,7 +7,6 @@ class StopWatch(Frame):
         self.timedisplay = StringVar()
         self.elapsedtime = 0.0
         self.start = 0.0
-        self.lapmod1 = 0
         self.lapmod2 = 0
         self.laps = []
         self.today = time.strftime("%d %b %Y %H-%M-%S", time.localtime())
