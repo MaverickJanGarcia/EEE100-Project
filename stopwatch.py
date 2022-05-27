@@ -100,6 +100,13 @@ class StopWatch(Frame):
         self.running = 0
         self.lapmod1.delete(0, 'end')
         self.lapmod2 = 0
+        
+        PopUp_Save = Toplevel(root)
+        PopUp_Save.title("")
+        PopUp_Save.geometry("200x50+130+200")
+        PopUp_Save.resizable(False, False)
+        Label_Save = Label(PopUp_Save, text="File Saved!", font=("Arial", 13))
+        Label_Save.place(x=60,y=15)
                 
 def main():
     global root
