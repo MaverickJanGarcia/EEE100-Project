@@ -4,11 +4,13 @@ import time
 class StopWatch(Frame):
     def __init__(self, parent=None, **kw):
         Frame.__init__(self, parent, kw)
-        self.timedisplay = StringVar()
         self.elapsedtime = 0.0
         self.start = 0.0
+        self.running = 0
         self.lapmod2 = 0
+        self.timedisplay = StringVar()
         self.laps = []
+        self.Widgets()
         self.today = time.strftime("%d %b %Y %H-%M-%S", time.localtime())
      
     def Widgets(self):
@@ -16,6 +18,12 @@ class StopWatch(Frame):
         Label_StopWatchTime = Label(textvariable=self.timedisplay)
         self.record_StopWatch(self.elapsedtime)
         Label_StopWatchTime.place(x=180, y=185, height=25, width=150)
+        
+        # File Creator
+        Label_FileName = Label(text="File Name")
+        Label_FileName.place(x=100,y=70, width=300, height=40)
+        self.entry = Entry(self)
+        self.entry.place(x=100, y=100, height=30, width=300)        
         
         # Laps
         scrollbar = Scrollbar(self, orient=VERTICAL)
