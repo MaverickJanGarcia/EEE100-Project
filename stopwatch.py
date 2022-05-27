@@ -66,6 +66,7 @@ class StopWatch(Frame):
             self.running = 0
             
     def command_Reset(self):
+        global PopUp_Reset
         self.start = time.time()         
         self.record_StopWatch(self.elapsedtime)
         self.after_cancel(self.timer)            
@@ -74,6 +75,7 @@ class StopWatch(Frame):
         self.running = 0
         self.lapmod1.delete(0, 'end')
         self.lapmod2 = 0
+        PopUp_Reset.destroy()
        
     def command_Lap(self):
         tempo = self.elapsedtime - self.lapmod2
@@ -103,6 +105,21 @@ def main():
     global root
     root = Tk()
     root.title("Stop Watch")
+
+    # Pop Up Windows
+    def ResetWindow():
+        global PopUp_Reset
+        PopUp_Reset = Toplevel(root)
+        PopUp_Reset.title("")
+        PopUp_Reset.geometry("200x100+130+200")
+        PopUp_Reset.resizable(False, False)
+        Label_AskReset = Label(PopUp_Reset, text="Are you sure you want \nto Reset?")
+        Label_AskReset.place(x=15,y=10)
+
+        Button_Yes = Button(PopUp_Reset, text="Yes", command=sw.command_Reset)
+        Button_Yes.place(x=35,y=70, height=20, width=50)
+        Button_No = Button(PopUp_Reset, text="No", command=PopUp_Reset.destroy)
+        Button_No.place(x=115,y=70, height=20, width=50)
     
     # Main Widget Frame
     Positions = Frame(root)
@@ -114,7 +131,7 @@ def main():
     # Buttons Functions
     Button_Start = Button(text="Start", command=sw.command_Start)
     Button_Stop = Button(text="Stop", command=sw.command_Stop))
-    Button_Reset = Button(text="Reset", command=sw.command_Reset)
+    Button_Reset = Button(text="Reset", command=ResetWindow)
     Button_Lap = Button(text="Lap", command=sw.command_Lap)
     Button_Save = Button(text="Save", command=sw.command_Save)
     
