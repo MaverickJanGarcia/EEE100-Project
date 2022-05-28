@@ -112,6 +112,24 @@ def main():
     global root
     root = Tk()
     root.title("Stop Watch")
+    
+    # Clock and Date
+    def clock():
+        hour = time.strftime("%I")
+        minute = time.strftime("%M")
+        second = time.strftime("%S")
+        meridiem = time.strftime("%p")
+
+        Label_Clock.config(text=hour + ":" + minute + ":" + second + " " + meridiem)
+        Label_Clock.after(1000, clock)
+
+    def date():
+        month = time.strftime("%B")
+        day = time.strftime("%d")
+        year = time.strftime("%Y")
+
+        Label_Date.config(text=month + " / " + day + " / " + year)
+        Label_Date.after(1000, clock)
 
     # Pop Up Windows
     def ResetWindow():
@@ -143,6 +161,9 @@ def main():
     Button_Save = Button(text="Save", command=sw.command_Save)
     Button_Quit = Button(text='Quit', command=root.quit)
     
+    # Call Clock and Date Function
+    clock()
+    date()
     
     # Buttons Positions
     Button_Start.place(x=12,y=250, width=100, height=50)
