@@ -141,7 +141,7 @@ def main():
     Button_Reset = Button(text="Reset", command=ResetWindow)
     Button_Lap = Button(text="Lap", command=sw.command_Lap)
     Button_Save = Button(text="Save", command=sw.command_Save)
-    Button_Quit = Button(text='Quit', command=root.quit)
+    
     
     # Buttons Positions
     Button_Start.place(x=12,y=250, width=100, height=50)
@@ -149,6 +149,5 @@ def main():
     Button_Reset.place(x=390, y=250, width=100, height=50)
     Button_Split.place(x=12,y=370, width=100, height=50)
     Button_Save.place(x=390,y=310, width=100, height=50)
-    Button_Quit.place(x=390,y=370, width=100, height=50)
     
     root.mainloop()
