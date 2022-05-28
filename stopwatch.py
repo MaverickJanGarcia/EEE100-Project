@@ -145,6 +145,19 @@ def main():
         Button_Yes.place(x=35,y=70, height=20, width=50)
         Button_No = Button(PopUp_Reset, text="No", command=PopUp_Reset.destroy)
         Button_No.place(x=115,y=70, height=20, width=50)
+     
+    def QuitWindow():
+        PopUp_Quit = Toplevel(root)
+        PopUp_Quit.title("")
+        PopUp_Quit.geometry("200x100+130+200")
+        PopUp_Quit.resizable(False, False)
+        Label_AskQuit = Label(PopUp_Quit, text="Are you sure you want \nto Quit?", font=("Arial", 13))
+        Label_AskQuit.place(x=15,y=10)
+
+        Button_Yes = Button(PopUp_Quit, text="Yes", command=root.quit, font=("Arial", 10))
+        Button_Yes.place(x=35,y=70, height=20, width=50)
+        Button_No = Button(PopUp_Quit, text="No", command=PopUp_Quit.destroy, font=("Arial", 10))
+        Button_No.place(x=115,y=70, height=20, width=50)
     
     # Main Widget Frame
     Positions = Frame(root)
@@ -159,7 +172,7 @@ def main():
     Button_Reset = Button(text="Reset", command=ResetWindow)
     Button_Lap = Button(text="Lap", command=sw.command_Lap)
     Button_Save = Button(text="Save", command=sw.command_Save)
-    Button_Quit = Button(text='Quit', command=root.quit)
+    Button_Quit = Button(text='Quit', bg="black",fg="white",command=QuitWindow, font=("Arial", 13, "bold italic"))
     
     # Call Clock and Date Function
     clock()
