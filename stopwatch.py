@@ -169,6 +169,50 @@ def main():
         Button_Yes.place(x=35,y=70, height=20, width=50)
         Button_No = Button(PopUp_Quit, text="No", command=PopUp_Quit.destroy, font=("Arial", 10))
         Button_No.place(x=115,y=70, height=20, width=50)
+        
+     def ClickSpeedTest():
+        PopUp_CST = Toplevel(root)
+        PopUp_CST.title("")
+        PopUp_CST.geometry("400x300")
+        PopUp_CST.resizable(False, False)
+        PopUp_CST['bg']= '#0059b3'
+        global counter
+        counter = 6
+
+        def first_click(number):
+            click(number)
+            countdown()
+
+        def countdown():
+            global counter, clicks
+            ClicksPerSecond = clicks / 5
+            if counter > 0:
+                counter -= 1
+                Label_Countdown.config(text=counter)
+                PopUp_CST.after(1000, countdown)
+            if counter == 0:
+                Label_Countdown.config(text="Times Up!")
+                Button_Click.config(state=DISABLED, text="Times up! Your final score is\n" + str(clicks) + "\n Result: " + str(ClicksPerSecond) + " Clicks Per Second")
+
+        def click(number):
+            global clicks
+            clicks = number
+            clicks += 1
+            Label_Score.config(text="Score: " + str(clicks))
+            Button_Click.config(text="Keep Clicking", command=lambda: click(clicks))
+
+        Label_CSTDesc = Label(PopUp_CST, text="Find out how fast you can click in 5 seconds", bg="#0059b3", fg="black", font=("Arial", 12, "bold"))
+        Label_CSTDesc.place(x=00, y=00, height=50, width=400)
+
+        Label_Countdown = Label(PopUp_CST, text=" ", bg="#0059b3", fg="black", font=("Arial", 20, "bold"))
+        Label_Countdown.place(x=125, y=80, height=50, width=150)
+                
+        Label_Score = Label(PopUp_CST, text="Score: 0", bg="#0059b3", fg="black", font=("Arial", 20, "bold"))
+        Label_Score.place(x=125, y=40, height=50, width=150)
+
+        Button_Click = Button(PopUp_CST, text="Click here to start playing", bg="black",fg="white", command=lambda: first_click(0), font=("Arial", 13, "bold italic"))
+        Button_Click.place(x=75, y=140, height=150, width=250)   
+    
     
     # Main Widget Frame
     Positions = Frame(root)
