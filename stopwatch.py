@@ -78,6 +78,7 @@ class StopWatch(Frame):
         PopUp_Reset.destroy()
        
     def command_Lap(self):
+        
         tempo = self.elapsedtime - self.lapmod2
         if self.running:
             self.laps.append(self.record_Lap(tempo))
@@ -86,27 +87,37 @@ class StopWatch(Frame):
             self.lapmod2 = self.elapsedtime
 
     def command_Save(self):
+        global root
         archive = str(self.entry.get()) + ' - '
-        with open(archive + self.today + '.txt', 'wb') as lapfile:
-            for lap in self.laps:
-                lapfile.write((bytes(str(lap) + '\n', 'utf-8')))
-                
-        self.entry.delete(0, 'end')
-        self.start = time.time()         
-        self.record_StopWatch(self.elapsedtime)
-        self.after_cancel(self.timer)            
-        self.elapsedtime = time.time() - self.start    
-        self.record_StopWatch(self.elapsedtime)
-        self.running = 0
-        self.lapmod1.delete(0, 'end')
-        self.lapmod2 = 0
-        
-        PopUp_Save = Toplevel(root)
-        PopUp_Save.title("")
-        PopUp_Save.geometry("200x50+130+200")
-        PopUp_Save.resizable(False, False)
-        Label_Save = Label(PopUp_Save, text="File Saved!", font=("Arial", 13))
-        Label_Save.place(x=60,y=15)
+        if archive == ' - ':
+            PopUp_InvalidSave = Toplevel(root)
+            PopUp_InvalidSave.title("")
+            PopUp_InvalidSave.geometry("310x50+95+200")
+            PopUp_InvalidSave.resizable(False, False)
+            Label_InvalidSave = Label(PopUp_InvalidSave, text="Please Input a File Name!", font=("Arial", 13))
+            Label_InvalidSave.place(x=60,y=15)
+        else:
+            with open(archive + self.today + '.txt', 'wb') as lapfile:
+            
+                for lap in self.laps:
+                    lapfile.write((bytes(str(lap) + '\n', 'utf-8')))
+            
+            self.entry.delete(0, 'end')
+            self.start = time.time()         
+            self.record_StopWatch(self.elapsedtime)
+            self.after_cancel(self.timer)            
+            self.elapsedtime = time.time() - self.start    
+            self.record_StopWatch(self.elapsedtime)
+            self.running = 0
+            self.lapmod1.delete(0, 'end')
+            self.lapmod2 = 0
+            
+            PopUp_Save = Toplevel(root)
+            PopUp_Save.title("")
+            PopUp_Save.geometry("200x50+130+200")
+            PopUp_Save.resizable(False, False)
+            Label_Save = Label(PopUp_Save, text="File Saved!", font=("Arial", 13))
+            Label_Save.place(x=60,y=15)
                 
 def main():
     global root
