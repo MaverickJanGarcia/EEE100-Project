@@ -152,12 +152,12 @@ def main():
         PopUp_Reset.title("")
         PopUp_Reset.geometry("200x100+130+200")
         PopUp_Reset.resizable(False, False)
-        Label_AskReset = Label(PopUp_Reset, text="Are you sure you want \nto Reset?")
+        Label_AskReset = Label(PopUp_Reset, text="Are you sure you want \nto Reset?", font=("Arial", 13))
         Label_AskReset.place(x=15,y=10)
 
-        Button_Yes = Button(PopUp_Reset, text="Yes", command=sw.command_Reset)
+        Button_Yes = Button(PopUp_Reset, text="Yes", command=sw.command_Reset, font=("Arial", 10))
         Button_Yes.place(x=35,y=70, height=20, width=50)
-        Button_No = Button(PopUp_Reset, text="No", command=PopUp_Reset.destroy)
+        Button_No = Button(PopUp_Reset, text="No", command=PopUp_Reset.destroy, font=("Arial", 10))
         Button_No.place(x=115,y=70, height=20, width=50)
      
     def QuitWindow():
@@ -218,30 +218,42 @@ def main():
     
     
     # Main Widget Frame
-    Positions = Frame(root)
+    Positions = Frame(root, bg ='#0059b3')
 
     # Lapbox Position
     sw = StopWatch(Positions)
     sw.grid(row=0, column=0)
     
     # Buttons Functions
-    Button_Start = Button(text="Start", command=sw.command_Start)
-    Button_Stop = Button(text="Stop", command=sw.command_Stop))
-    Button_Reset = Button(text="Reset", command=ResetWindow)
-    Button_Lap = Button(text="Lap", command=sw.command_Lap)
-    Button_Save = Button(text="Save", command=sw.command_Save)
+    Label_StopWatch = Label(text="Stop Watch", bg="#0059b3", fg="black", font=("Arial", 20, "bold"))
+    Button_Start = Button(text="Start", bg="black",fg="white", command=sw.command_Start, font=("Arial", 13, "bold italic"))
+    Button_Stop = Button(text="Stop", bg="black",fg="white", command=sw.command_Stop, font=("Arial", 13, "bold italic")))
+    Button_Reset = Button(text="Reset", bg="black",fg="white", command=ResetWindow, font=("Arial", 13, "bold italic"))
+    Button_Lap = Button(text="Lap", bg="black",fg="white", command=sw.command_Lap, font=("Arial", 13, "bold italic"))
+    Button_Save = Button(text="Save", bg="black",fg="white", command=sw.command_Save, font=("Arial", 13, "bold italic"))
     Button_Quit = Button(text='Quit', bg="black",fg="white",command=QuitWindow, font=("Arial", 13, "bold italic"))
+    Button_CST = Button(text="Click Speed Test", bg="black",fg="white", command=ClickSpeedTest, font=("Arial", 13, "bold italic"))
+    Label_Clock = Label(text=" ", bg="#0059b3", fg="white", font=("Arial", 14, "bold"))
+    Label_Date = Label(text=" ", bg="#0059b3", fg="white", font=("Arial", 14, "bold"))
     
     # Call Clock and Date Function
     clock()
     date()
     
-    # Buttons Positions
+    # Positions
+    Label_StopWatch.place(x=180,y=25, height=30, width= 150)
     Button_Start.place(x=12,y=250, width=100, height=50)
     Button_Stop.place(x=12,y= 310, width=100, height=50)
     Button_Reset.place(x=390, y=250, width=100, height=50)
     Button_Split.place(x=12,y=370, width=100, height=50)
     Button_Save.place(x=390,y=310, width=100, height=50)
     Button_Quit.place(x=390,y=370, width=100, height=50)
+    Button_CST.place(x=150, y=440, width=200, height=50)
+    Label_Clock.place(x=175,y=530, width=150, height=14)
+    Label_Date.place(x=177,y=550, width=150, height=30)
+    Positions.place(x=120, y=250)    
     
     root.mainloop()
+    
+if __name__ == '__main__':
+    main()
