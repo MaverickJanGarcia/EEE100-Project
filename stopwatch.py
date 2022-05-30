@@ -1,6 +1,7 @@
 from tkinter import *
 import time
 
+#Stop Watch Functions
 class StopWatch(Frame):
     def __init__(self, parent=None, **kw):
         Frame.__init__(self, parent, kw)
@@ -15,21 +16,21 @@ class StopWatch(Frame):
      
     def Widgets(self):
         # Stop Watch Timer
-        Label_StopWatchTime = Label(textvariable=self.timedisplay)
+        Label_StopWatchTime = Label(textvariable=self.timedisplay, bg='#0059b3', fg='black', font=("Arial", 40, "bold"))
         self.record_StopWatch(self.elapsedtime)
-        Label_StopWatchTime.place(x=180, y=185, height=25, width=150)
+        Label_StopWatchTime.place(x=100, y=185, height=40, width=300)
         
         # File Creator
-        Label_FileName = Label(text="File Name")
+        Label_FileName = Label(text="File Name", bg="#0059b3", fg="black", font=("Arial", 12))
         Label_FileName.place(x=100,y=70, width=300, height=40)
-        self.entry = Entry(self)
+        self.entry = Entry(font=("Arial", 12))
         self.entry.place(x=100, y=100, height=30, width=300)        
         
         # Laps
         scrollbar = Scrollbar(self, orient=VERTICAL)
-        self.lapmod1 = Listbox(self, selectmode=EXTENDED, height = 8),
+        self.lapmod1 = Listbox(self, selectmode=EXTENDED, height = 8, width = 26, font=("Arial", 12, "bold"),
                          yscrollcommand=scrollbar.set)
-        self.lapmod1.pack(side=LEFT, fill=BOTH, expand=1, pady=5, padx=2)
+        self.lapmod1.pack(side=LEFT, fill=BOTH, expand=1, pady=0, padx=2)
         scrollbar.config(command=self.lapmod1.yview)
         scrollbar.pack(side=RIGHT, fill=Y)
     
@@ -78,7 +79,6 @@ class StopWatch(Frame):
         PopUp_Reset.destroy()
        
     def command_Lap(self):
-        
         tempo = self.elapsedtime - self.lapmod2
         if self.running:
             self.laps.append(self.record_Lap(tempo))
@@ -123,6 +123,9 @@ def main():
     global root
     root = Tk()
     root.title("Stop Watch")
+    root.geometry("500x600+0+0")
+    root.resizable(False,False)
+    root['bg']= '#0059b3'
     
     # Clock and Date
     def clock():
