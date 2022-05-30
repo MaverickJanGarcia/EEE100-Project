@@ -4,7 +4,7 @@ import time
 #Stop Watch Functions
 class StopWatch(Frame):
     def __init__(self, parent=None, **kw):
-        Frame.__init__(self, parent, kw)
+        Frame.__init__(self, parent, kw, bg= '#0059b3')
         self.elapsedtime = 0.0
         self.start = 0.0
         self.running = 0
