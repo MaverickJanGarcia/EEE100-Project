@@ -1,1 +1,10 @@
+# Ignore all text files
+# Except requirements.txt file
+*.txt 
+!requirements.txt
 
+# Ignore all log files
+*.log
+
+# Ignore README.md file
+README.md
